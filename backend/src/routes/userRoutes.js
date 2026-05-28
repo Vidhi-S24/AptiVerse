@@ -7,7 +7,7 @@ import { getUserStrategy } from "../controllers/strategyController.js";
 
 router.get("/profile", authMiddleware, getProfile);
 router.get('/analytics', authMiddleware, getProfileAnalytics);
-router.get('/strategy/:userId', getUserStrategy);
-router.post("/review/:userId", generatePersonalizedReview);
+router.get('/strategy/:userId', authMiddleware, getUserStrategy);
+router.post("/review/:userId", authMiddleware, generatePersonalizedReview);
 
 export default router;
