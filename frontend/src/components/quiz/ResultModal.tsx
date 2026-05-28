@@ -68,6 +68,8 @@ export const ResultModal = ({
   });
   const hasReview = Boolean(cachedReview);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
   const handleDetailedAnalysis = () => {
     navigate("/results", {
       state: {
@@ -104,7 +106,7 @@ export const ResultModal = ({
     setIsGenerating(true);
 
     try {
-      const { data } = await axios.post(`/api/users/review/${userId}`, {
+      const { data } = await axios.post(`${API_URL}/api/users/review/${userId}`, {
         quizSessionData: {
           score: scorePercentage,
           correctAnswers,
