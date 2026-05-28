@@ -116,7 +116,7 @@ export const ResultModal = ({
           totalQuestions,
           totalViewed,
           topicsCovered: Array.from(new Set(questions.map((q) => q.topicId))),
-        },{
+        },
           headers: {
             Authorization: `Bearer ${session?.access_token}`,
           },
