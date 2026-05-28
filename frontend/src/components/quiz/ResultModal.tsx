@@ -108,7 +108,7 @@ export const ResultModal = ({
     setIsGenerating(true);
 
     try {
-      const { data } = await axios.post(`${API_URL}/api/users/review/${userId}`, {
+      const { data } = await axios.post(`/api/users/review/${userId}`, {
         quizSessionData: {
           score: scorePercentage,
           correctAnswers,
