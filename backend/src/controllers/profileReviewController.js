@@ -12,7 +12,7 @@ export const generateProfileReview = async (req, res) => {
       where: { userId },
     });
 
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+    const API_URL = process.env.BACKEND_API_URL || "http://localhost:3000";
 
     // 2. Fetch analytics (reuse existing API)
     const analyticsRes = await fetch(
