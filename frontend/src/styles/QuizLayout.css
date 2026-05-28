@@ -1,0 +1,305 @@
+/* ============================================================
+   QuizLayout.css
+   Styles for the top-level quiz page container and content grid
+   Used by: QuizTest.tsx
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+:root {
+  --quiz-radius: 16px;
+  --quiz-card-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --transition: 0.25s ease;
+}
+
+/* Page Container */
+.quiz-test-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Grid */
+.quiz-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Loader */
+.loader {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 18px;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Bee Loader Screen */
+.bee-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  gap: 18px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.bee-animation {
+  transform: scale(1.1);
+  margin-bottom: 10px;
+}
+
+/* Loading Ring */
+.loader-ring {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 10px 0;
+}
+
+.loader-ring .ring {
+  width: 100%;
+  height: 100%;
+  border: 4px solid rgba(255, 193, 7, 0.2);
+  border-top: 4px solid var(--brand-yellow);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-ring .ring-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.2), transparent 70%);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.dark .loader-ring .ring-glow {
+  background: radial-gradient(circle, rgba(201, 36, 251, 0.2), transparent 70%);
+}
+
+.loader-title {
+  font-size: 25px;
+  font-weight: 600;
+  color: var(--brand-yellow);
+  text-align: center;
+}
+
+.loader-subtext {
+  font-size: 20px;
+  opacity: 0.8;
+  text-align: center;
+  color: var(--text-main);
+}
+
+.loader-steps {
+  margin-top: 10px;
+  font-size: 15px;
+  opacity: 0.75;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+.step-fade {
+  transition: all 0.4s ease;
+  opacity: 1;
+  animation: stepFade 0.4s ease;
+}
+
+/* Error / Empty State Card */
+.no-questions-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(24px, 5vw, 48px);
+  max-width: 480px;
+  margin: 80px auto;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.3);
+}
+
+.dark .no-questions-card p {
+  color: white;
+}
+
+.bee-error-icon {
+  width: 100px;
+  margin-bottom: 8px;
+  transition: transform 0.3s ease;
+  animation: beeFloat 2s ease-in-out infinite;
+}
+
+.no-questions-card:hover .bee-error-icon {
+  transform: translateY(-5px);
+}
+
+.no-questions-card h2 {
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+  font-size: clamp(18px, 3vw, 24px);
+}
+
+.no-questions-card p {
+  color: #000000;
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  font-size: clamp(14px, 1.5vw, 16px);
+}
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Shared Button Base */
+.start-btn,
+.submit-btn,
+.solution-btn,
+.next-question-btn,
+.analysis-btn,
+.retry-btn,
+.close-btn,
+.submit-test-btn {
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 16px);
+  cursor: pointer;
+  padding: 10px 28px;
+  transition:
+    background-color var(--transition),
+    transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.start-btn,
+.submit-btn,
+.retry-btn,
+.submit-test-btn {
+  background-color: var(--blue-btn-alternative);
+  color: #413636;
+}
+
+.start-btn:hover,
+.submit-btn:hover,
+.retry-btn:hover,
+.submit-test-btn {
+  background-color: #71bee9;
+}
+
+.dark .start-btn:hover,
+.dark .retry-btn:hover,
+.dark .submit-test-btn:hover,
+.dark .submit-btn:hover {
+  background-color: #9eaebe;
+}
+
+.submit-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.solution-btn,
+.next-question-btn {
+  background-color: var(--brand-yellow);
+  color: #413636;
+}
+
+.solution-btn:hover,
+.next-question-btn:hover {
+  background-color: var(--hover-yellow-button);
+}
+
+/* Bee Icon */
+.bee {
+  position: absolute;
+  width: 60px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.bee-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+/* Animations */
+@keyframes beeFloat {
+  0%,
+  100% { transform: translateY(0); }
+  50%  { transform: translateY(-7px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%,
+  100% { transform: scale(1); opacity: 0.6; }
+  50%  { transform: scale(1.2); opacity: 0.2; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stepFade {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popupScale {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .quiz-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .quiz-test-container {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-test-container {
+    padding: 8px;
+  }
+}

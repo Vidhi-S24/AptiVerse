@@ -1,0 +1,149 @@
+.header {
+  background-color: var(--brand-blue);
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header-content {
+  max-width: 1400px;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+}
+
+.logo {
+  object-fit: contain;
+  height: 80px;
+  padding-top: 5px;
+  transition: transform 0.2s;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  color: var(--text-main);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-link.active {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mode-icon {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mode-icon:active {
+  transform: rotate(45deg) scale(0.9);
+}
+
+.signin-btn {
+  color: #413636;
+  background-color: var(--brand-yellow);
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/*  MOBILE SPECIFIC STYLES  */
+.menu-toggle {
+  display: none; 
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.bar {
+  width: 24px;
+  height: 3px;
+  background-color: var(--text-main);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    left: -100%; 
+    width: 280px;
+    height: 100vh;
+    background-color: var(--brand-blue);
+    flex-direction: column;
+    padding: 100px 24px;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    gap: 10px;
+  }
+
+  .nav.nav-open {
+    left: 0; 
+  }
+
+  .nav-link {
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .menu-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+  .menu-toggle.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+
+@media (max-width: 500px) {
+  .logo {
+    display: none; 
+  }
+  
+  .right-section {
+    gap: 8px;
+  }
+
+  .signin-btn {
+    padding: 6px 16px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,88 @@
+.bee-container {
+  position: relative;
+  width: 80px;  
+  height: 80px;
+  display: inline-block;
+  z-index: 10;
+  animation: beeFloat 3s ease-in-out infinite;
+}
+
+.bee-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bee-img {
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2; 
+}
+
+/* Wing Base Styles */
+.wing {
+  position: absolute;
+  background-color: #9cf2f1;
+  border: 1.5px solid #333; 
+  width: 28px;  
+  height: 38px; 
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  z-index: 1; 
+  opacity: 0.9;
+}
+
+.left-wing {
+  top: 12px;   
+  left: 38px;  
+  transform-origin: bottom left;
+  animation: flap-left 0.15s ease-in-out infinite alternate;
+}
+
+.right-wing {
+  top: 8px;    
+  left: 48px;  
+  transform-origin: bottom left;
+  animation: flap-right 0.15s ease-in-out infinite alternate;
+}
+
+@keyframes flap-left {
+  0% {
+    transform: rotate(20deg) skewY(-10deg);
+  }
+  100% {
+    transform: rotate(-20deg) skewY(-25deg);
+  }
+}
+
+@keyframes flap-right {
+  0% {
+    transform: rotate(40deg) skewY(10deg);
+  }
+  100% {
+    transform: rotate(0deg) skewY(25deg);
+  }
+}
+
+@keyframes beeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.bee-container.flip {
+  transform: scaleX(-1);
+}
+
+.quiz-bee {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0) scaleX(-1); }
+  50% { transform: translateY(-10px) scaleX(-1); }
+}

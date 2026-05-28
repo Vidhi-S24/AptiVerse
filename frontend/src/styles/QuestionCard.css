@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Math&display=swap');
+
+.question-section {
+  background-color: var(--prblmlist-card);
+  padding: 28px;
+  border-radius: var(--quiz-radius);
+  box-shadow: var(--quiz-card-shadow);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  font-family: 'Libertinus Math', serif; 
+  /* Removed overflow: hidden to ensure exponents near the top aren't clipped */
+}
+
+/* Question Header */
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.question-left {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.question-number {
+  font-weight: 700;
+  font-size: clamp(15px, 1.3vw, 18px);
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.5;
+  color: var(--text-main);
+  padding-top: 3px;
+}
+
+.question-text-wrapper {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.question-main-text {
+  font-size: clamp(22px, 1.2vw, 24px);
+  color: var(--text-main);
+  display: block;
+  width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  overflow: visible !important;
+  padding-top: 3px !important; 
+}
+
+/* Year Badge */
+.year {
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.question-year {
+  font-size: clamp(12px, 1vw, 14px);
+  font-style: italic;
+  opacity: 0.65;
+  white-space: nowrap;
+  color: var(--text-main);
+}
+
+.question-text {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Question Image */
+.question-image-container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+  width: 100%;
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 280px;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Options */
+.options-container {
+  margin: 20px 0 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-wrap: break-word;
+}
+
+.options-label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-size: 15px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.02);
+  transition: background-color var(--transition);
+  width: 100%;
+  min-width: 0;
+}
+
+.option-item:hover {
+  background-color: #f1f6f9;
+}
+
+.dark .option-item:hover {
+  background-color: #4a4650;
+}
+
+.option-item.selected {
+  background-color: rgba(var(--blue-btn-alternative-rgb, 113, 190, 233), 0.2);
+}
+
+.option-item input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--blue-btn-alternative);
+}
+
+.option-item input:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.option-text {
+  padding-top: 6px;
+  font-size: clamp(20px, 1.1vw, 22px);
+  color: var(--text-main);
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  word-wrap: break-word;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  overflow: visible !important;
+}
+
+/* Option Status Highlights */
+.option-item.correct-highlight {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  border: 2px solid #22c55e !important;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.2);
+}
+
+.option-item.wrong-highlight {
+  background-color: #fee2e2 !important;
+  border: 2px solid #ef4444 !important;
+  color: #991b1b;
+}
+
+.option-item.correct-reveal {
+  background-color: rgba(34, 197, 94, 0.05);
+  border: 2px solid rgba(74, 222, 128, 0.4);
+  color: #a7f3d0;
+  box-shadow: none;
+}
+
+.dark .option-item.correct-highlight {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  border: 2px solid #4ade80 !important;
+  color: #bbf7d0;
+}
+
+.dark .option-item.wrong-highlight {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border: 2px solid #f87171 !important;
+  color: #fecaca;
+}
+
+.dark .option-item.correct-reveal {
+  border: 2px solid #4ade80;
+  background-color: rgba(74, 222, 128, 0.08);
+  color: #bbf7d0;
+}
+
+.option-item.selected:not(.correct-highlight):not(.wrong-highlight) {
+  border: 2px solid var(--brand-blue);
+  background-color: rgba(130, 200, 229, 0.1);
+}
+
+/* Solution */
+.solution-container {
+  margin: 0 0 20px;
+  padding: 18px 20px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  border-left: 4px solid var(--brand-yellow);
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible; 
+}
+
+.dark .solution-container {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.solution-label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-size: 15px;
+}
+
+.solution-text {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: clamp(20px, 1.1vw, 22px);
+  color: var(--text-main);
+  overflow: visible !important;
+}
+
+.math-block-container {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.math-line {
+  display: block; 
+  line-height: 2.2; /* Extra space for exponents/fractions */
+  padding: 6px 0; 
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: visible !important; 
+}
+
+.katex {
+  font-size: 1em !important; 
+  text-rendering: auto !important;
+  text-indent: 0 !important;
+}
+
+.katex-html {
+  white-space: normal !important; 
+  overflow: visible !important;
+}
+
+/* 3. Subscript/Superscript Fixes */
+.katex .vlist-t {
+  border-collapse: separate !important; 
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .question-section {
+    padding: 20px 16px;
+  }
+
+  .question-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .year {
+    order: -1;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .question-section {
+    padding: 16px 12px;
+  }
+
+  .question-left {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .submit-btn,
+  .action-buttons .solution-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

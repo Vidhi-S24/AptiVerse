@@ -1,0 +1,13 @@
+/* ============================================================
+   QuizTest.css — index / redirect
+   All quiz styles have been split into component-level files:
+
+     QuizLayout.css       → quiz-test-container, quiz-content, loaders,
+                            empty states, shared button base, animations
+     QuizHeader.css       → quiz-header, exam-selector, timer
+     QuizInstructions.css → get-ready-container, quiz-instructions, ready-image
+     QuestionCard.css     → question-section, options, KaTeX, solution, action-buttons
+     QuizSidebar.css      → progress-section, question-navigation, quiz-actions
+     ResultModal.css      → result-overlay, result-modal, chart, stats, AI review,
+                            aurora, mock/analysis/secondary buttons, dark variants
+   ============================================================ */

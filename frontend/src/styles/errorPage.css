@@ -1,0 +1,112 @@
+.error-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.error-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-top: -40px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.error-message {
+  font-size: 2rem;
+  margin-top: -120px; 
+  color: var(--brand-yellow);
+  letter-spacing: 3px;
+  font-weight: 800;
+  z-index: 10;
+}
+
+.error-description {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-top: 20px;
+  max-width: 450px;
+  line-height: 1.6;
+}
+
+.error-description strong {
+  color: var(--accent-purple);
+  font-weight: 600;
+}
+
+.home-btn {
+  background-color: var(--brand-yellow);
+  padding: 14px 40px; 
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #121212;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(137, 136, 136, 0.5);
+}
+
+.home-btn:hover {
+  background-color: var(--hover-yellow-button);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(137, 136, 136, 0.5);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@media (max-width: 480px) {
+  .error-image {
+    max-width: 300px;
+    margin-top: 0;
+  }
+  .error-message {
+    font-size: 1.5rem;
+    margin-top: -60px; 
+  }
+  .error-description {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+}
+
+.error-message,
+.error-description {
+  position: relative;
+  animation: glitch 0.8s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    text-shadow: 1px 0 0 currentColor, -1px 0 0 currentColor;
+  }
+  20% {
+    transform: translate(-1px, 1px);
+    text-shadow: -1px -1px 0 currentColor, 1px 1px 0 currentColor;
+  }
+  40% {
+    transform: translate(1px, -1px);
+    text-shadow: 1px -1px 0 currentColor, -1px 1px 0 currentColor;
+  }
+  60% {
+    transform: translate(-1px, 0);
+    text-shadow: -1px 0 0 currentColor, 1px 0 0 currentColor;
+  }
+  80% {
+    transform: translate(1px, 1px);
+    text-shadow: 1px 1px 0 currentColor, -1px -1px 0 currentColor;
+  }
+  100% {
+    transform: translate(0);
+    text-shadow: 1px 0 0 currentColor, -1px 0 0 currentColor;
+  }
+}

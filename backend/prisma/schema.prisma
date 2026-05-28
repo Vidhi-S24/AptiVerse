@@ -1,0 +1,144 @@
+datasource db {
+  provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Strategy {
+  REMEDIAL    // Accuracy < 50%: Focus on fundamentals
+  PRACTICE    // Accuracy 50-80%: Volume and variety
+  CHALLENGE   // Accuracy > 80%: Harder variants / time pressure
+  MAINTENANCE // High accuracy but hasn't practiced in 14+ days
+}
+
+model User {
+  id          String            @id @db.Uuid
+  name        String
+  email       String            @unique
+  role        Role              @default(USER)
+  attempts    QuestionAttempt[]
+  testResults TestResult[]
+
+  // AI layer
+  mastery  UserMastery[]
+  strategy UserStrategy?
+
+  @@map("user")
+}
+
+model Question {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  examId         String   @map("exam_id")
+  topicId        String   @map("topic_id")
+  subtopicId     String?  @map("subtopic_id")
+  yearAsked      Int      @map("year_asked")
+  questionText   String   @map("question_text") @db.Text
+  imageUrl       String?  @map("image_url")
+  optionA        String   @map("option_a")
+  optionB        String   @map("option_b")
+  optionC        String   @map("option_c")
+  optionD        String   @map("option_d")
+  correctAnswer  String   @map("correct_answer")
+  solution       String   @map("solution") @db.Text
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  attempts QuestionAttempt[]
+  aiMeta   AiQuestionMeta?
+
+  @@map("questions")
+}
+
+model QuestionAttempt {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String @map("user_id") @db.Uuid
+  user       User   @relation(fields: [userId], references: [id])
+  
+  questionId String   @map("question_id") @db.Uuid
+  question   Question @relation(fields: [questionId], references: [id])
+  
+  testId String?     @map("test_id") @db.Uuid
+  test   TestResult? @relation(fields: [testId], references: [id])
+
+  isCorrect      Boolean @map("is_correct")
+  timeSpent      Int     @map("time_spent")
+  viewedSolution Boolean @default(false) @map("viewed_solution")
+  selectedOption String  @default("not_answered") @map("selected_option")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("question_attempts")
+}
+
+model TestResult {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  score          Int
+  totalQuestions Int   @map("total_questions")
+  accuracy       Float
+  timeTaken      Int   @map("time_taken")
+
+  createdAt DateTime          @default(now()) @map("created_at")
+  attempts  QuestionAttempt[]
+
+  @@map("test_results")
+}
+
+model AiQuestionMeta {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  questionId String @unique @map("question_id") @db.Uuid
+  question   Question @relation(fields: [questionId], references: [id])
+
+  difficulty    Float   @default(0.5)
+  estimatedTime Int     @default(60) @map("estimated_time")
+  isAiGenerated Boolean @default(false) @map("is_ai_generated")
+  tags          Json    @default("[]")
+
+  @@map("ai_question_meta")
+}
+
+model UserMastery {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  topicId    String  @map("topic_id")
+  subtopicId String? @map("subtopic_id")
+
+  accuracy         Float
+  avgTimeSpent     Int      @map("avg_time_spent")
+  totalAttempts    Int      @map("total_attempts")
+  solutionViewRate Float    @map("solution_view_rate")
+  behavioralSnapshot Json?  @map("behavioral_snapshot")
+  lastAttemptAt    DateTime @default(now()) @map("last_attempt_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, topicId, subtopicId])
+  @@map("user_mastery")
+}
+
+model UserStrategy {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @unique @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id])
+
+  currentStrategy Strategy @default(PRACTICE) @map("current_strategy")
+  weakSubtopics   Json     @map("weak_subtopics")
+  strongSubtopics Json     @map("strong_subtopics")
+  nextAction      Json?    @map("next_action")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_strategies")
+}
