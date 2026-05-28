@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import Aurora from "../../ui/Aurora";
+import { useAuth } from "../../context/AuthContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend, DoughnutController);
 
@@ -57,6 +58,7 @@ export const ResultModal = ({
   const navigate = useNavigate();
 
   const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+  const { session } = useAuth();
 
   const [detailedReview, setDetailedReview] = useState<string | null>(null);
   const [animatedReview, setAnimatedReview] = useState<string>("");
@@ -115,9 +117,9 @@ export const ResultModal = ({
           totalViewed,
           topicsCovered: Array.from(new Set(questions.map((q) => q.topicId))),
         },{
-         headers: {
-             Authorization: `Bearer ${token}`,
-          }
+          headers: {
+            Authorization: `Bearer ${session?.access_token}`,
+          },
       });
 
       setDetailedReview(data.review);
