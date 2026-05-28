@@ -41,6 +41,8 @@ function Profile() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [session, setSession] = useState<any>(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
   useEffect(() => {
     const loadSession = async () => {
       const { data } = await supabase.auth.getSession();
@@ -123,7 +125,7 @@ function Profile() {
       if (!session) return;
 
       try {
-        const res = await axios.get("http://localhost:3000/api/users/analytics", {
+        const res = await axios.get(`${API_URL}/api/users/analytics`, {
           headers: {
             Authorization: `Bearer ${session.access_token}`,
           },
