@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const fetchProfileReview = async (token: string) => {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
   const res = await axios.get(
-    "http://localhost:3000/api/users/profile-review",
+    `${API_URL}/api/users/profile-review`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
