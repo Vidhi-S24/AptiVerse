@@ -87,7 +87,6 @@ export const ResultModal = ({
     });
   };
 
-  // ✨ word-by-word animation
   const animateText = (text: string) => {
     const words = text.split(" ");
     let current = "";
@@ -101,47 +100,32 @@ export const ResultModal = ({
     });
   };
 
-  // 🤖 AI review
   const handleRequestReview = async () => {
     if (!userId) return;
 
     setIsGenerating(true);
 
     try {
-      // const { data } = await axios.post(`/api/users/review/${userId}`, {
-      //   ${API_URL}/api/users/review/${userId}`,
-      //   quizSessionData: {
-      //     score: scorePercentage,
-      //     correctAnswers,
-      //     wrongAnswers,
-      //     totalQuestions,
-      //     totalViewed,
-      //     topicsCovered: Array.from(new Set(questions.map((q) => q.topicId))),
-      //   },
-      //     headers: {
-      //       Authorization: `Bearer ${session?.access_token}`,
-      //     },
-      // });
       const { data } = await axios.post(
-  `${API_URL}/api/users/review/${userId}`,
-  {
-    quizSessionData: {
-      score: scorePercentage,
-      correctAnswers,
-      wrongAnswers,
-      totalQuestions,
-      totalViewed,
-      topicsCovered: Array.from(
-        new Set(questions.map((q) => q.topicId))
-      ),
+    `${API_URL}/api/users/review/${userId}`,
+    {
+      quizSessionData: {
+        score: scorePercentage,
+        correctAnswers,
+        wrongAnswers,
+        totalQuestions,
+        totalViewed,
+        topicsCovered: Array.from(
+          new Set(questions.map((q) => q.topicId))
+        ),
+      },
     },
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${session?.access_token}`,
-    },
-  }
-);
+    {
+      headers: {
+        Authorization: `Bearer ${session?.access_token}`,
+      },
+    }
+  );
 
       setDetailedReview(data.review);
       setCachedReview(data.review);
@@ -309,7 +293,7 @@ export const ResultModal = ({
           </>
         )}
 
-        {/* ================= REVIEW VIEW ================= */}
+        {/*REVIEW VIEW */}
         {view === "review" && (
           <div className="review-page">
             <div className="review-header">
