@@ -188,7 +188,7 @@ function QuizTest({
       setLoading(true);
       try {
         let data;
-        if (location.state?.mode === "personalized") {
+        if (true || location.state?.mode === "personalized") {
           setCurrentQuestion(0);
           setUserAnswers({});
           setAnsweredQuestions({});
